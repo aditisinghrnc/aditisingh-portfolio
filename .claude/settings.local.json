@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell($git = Get-Command git -ErrorAction SilentlyContinue; $vercel = Get-Command vercel -ErrorAction SilentlyContinue; \"git: $\\($git.Source\\)\"; \"vercel: $\\($vercel.Source\\)\")"
+    ]
+  }
+}
