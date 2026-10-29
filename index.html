@@ -38,11 +38,18 @@ html { scroll-behavior: smooth; }
 body {
   font-family: var(--font-body);
   background: linear-gradient(160deg, var(--ink) 0%, var(--violet) 55%, #3B2670 100%);
+  background-size: 200% 200%;
+  animation: ambient-gradient 32s ease-in-out infinite;
   color: var(--cream);
   min-height: 100vh;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+}
+
+@keyframes ambient-gradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 a { color: inherit; text-decoration: none; }
@@ -467,6 +474,167 @@ section {
 .btn--secondary:hover { transform: translateY(-3px); background: rgba(255, 255, 255, 0.12); }
 
 /* ============================================
+   PROJECT VIDEO
+   ============================================ */
+.project-card {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.project-card__eyebrow {
+  display: block;
+  margin-bottom: 0.55rem;
+  color: var(--gold);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.project-card__copy h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  line-height: 1.2;
+}
+
+.project-card__copy p {
+  margin: 0.8rem 0 1.2rem;
+  color: var(--slate);
+}
+
+.project-card__preview {
+  position: relative;
+  display: flex;
+  min-height: 250px;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.4rem;
+  overflow: hidden;
+  padding: 1.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 18px;
+  background: radial-gradient(ellipse at 18% 10%, rgba(255, 107, 91, 0.28), transparent 42%), linear-gradient(145deg, #281b4f, #17102d 75%);
+  color: var(--cream);
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.project-card__preview:hover {
+  transform: translateY(-3px);
+  border-color: var(--gold);
+}
+
+.video-preview__label,
+.video-preview__hint {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.video-preview__label { color: var(--gold); }
+
+.video-preview__flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+  padding-right: 3rem;
+}
+
+.video-preview__node {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.07);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.video-preview__arrow { color: var(--coral); }
+
+.video-preview__play {
+  position: absolute;
+  top: 50%;
+  right: 1.5rem;
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  background: var(--coral);
+  color: var(--ink);
+  transform: translateY(-50%);
+  transition: transform 0.2s ease;
+}
+
+.project-card__preview:hover .video-preview__play { transform: translateY(-50%) scale(1.08); }
+
+.video-preview__play svg { width: 1.25rem; height: 1.25rem; margin-left: 3px; }
+.video-preview__hint { color: var(--slate); }
+
+.video-dialog {
+  width: min(900px, calc(100% - 2rem));
+  max-height: calc(100% - 2rem);
+  margin: auto;
+  padding: 1rem;
+  overflow: auto;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 20px;
+  background: #17102d;
+  color: var(--cream);
+}
+
+.video-dialog::backdrop {
+  background: rgba(10, 7, 20, 0.82);
+  backdrop-filter: blur(8px);
+}
+
+.video-dialog__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.2rem 0.2rem 0.9rem;
+}
+
+.video-dialog__header h2 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+}
+
+.video-dialog__close {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--cream);
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.video-dialog video {
+  display: block;
+  width: 100%;
+  max-height: 72vh;
+  border-radius: 12px;
+  background: #080610;
+}
+
+/* ============================================
    CONNECT SECTION
    ============================================ */
 .connect-hero {
@@ -553,6 +721,9 @@ footer {
    RESPONSIVE
    ============================================ */
 @media (max-width: 720px) {
+  .project-card { grid-template-columns: 1fr; gap: 1.5rem; padding: 1.25rem; }
+  .project-card__preview { min-height: 220px; }
+
   .hero {
     grid-template-columns: 1fr;
     text-align: center;
@@ -583,6 +754,7 @@ footer {
   <div class="nav__mark">Aditi Singh<span>.</span></div>
   <div class="nav__links">
     <a href="#about" aria-current="page">About</a>
+    <a href="#projects">Projects</a>
     <a href="#connect">Connect</a>
   </div>
 </nav>
@@ -693,6 +865,58 @@ footer {
   </div>
 </section>
 
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <span class="section-label">Featured project</span>
+  <article class="project-card">
+    <div class="project-card__copy">
+      <span class="project-card__eyebrow">AI · Hiring workflow</span>
+      <h3>AI Hiring Agent</h3>
+      <p>A walkthrough of an n8n-powered AI hiring agent project.</p>
+      <button class="btn btn--primary" type="button" data-open-project-video data-video-title="AI Hiring Agent" data-video-src="https://cdn.builder.io/o/assets%2F63828fb76c3b48909b3971c1cdf7c44d%2F68721c35d4a24fe7a978deca4b9e0004?alt=media&amp;token=36c522c1-d109-4b04-bc59-a7df15d57d09&amp;apiKey=63828fb76c3b48909b3971c1cdf7c44d">Watch the video <span aria-hidden="true">↗</span></button>
+    </div>
+    <button class="project-card__preview" type="button" data-open-project-video data-video-title="AI Hiring Agent" data-video-src="https://cdn.builder.io/o/assets%2F63828fb76c3b48909b3971c1cdf7c44d%2F68721c35d4a24fe7a978deca4b9e0004?alt=media&amp;token=36c522c1-d109-4b04-bc59-a7df15d57d09&amp;apiKey=63828fb76c3b48909b3971c1cdf7c44d" aria-label="Play the AI Hiring Agent video">
+      <span class="video-preview__label">Project walkthrough</span>
+      <span class="video-preview__flow" aria-hidden="true">
+        <span class="video-preview__node">Hiring</span>
+        <span class="video-preview__arrow">→</span>
+        <span class="video-preview__node">AI agent</span>
+        <span class="video-preview__arrow">→</span>
+        <span class="video-preview__node">Workflow</span>
+      </span>
+      <span class="video-preview__play" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5a1 1 0 0 1 1.5-.86l10 6.5a1 1 0 0 1 0 1.72l-10 6.5A1 1 0 0 1 8 18.5z"/></svg>
+      </span>
+      <span class="video-preview__hint">Select to play</span>
+    </button>
+  </article>
+</section>
+
+<section class="projects" aria-label="More projects">
+  <article class="project-card">
+    <div class="project-card__copy">
+      <span class="project-card__eyebrow">Recruiting · Platform</span>
+      <h3>Recruitment Platform Dashboard</h3>
+      <p>A walkthrough of a recruitment platform dashboard.</p>
+      <button class="btn btn--primary" type="button" data-open-project-video data-video-title="Recruitment Platform Dashboard" data-video-src="https://cdn.builder.io/o/assets%2F63828fb76c3b48909b3971c1cdf7c44d%2Ff7bca6af4bfe4f948267e4f5b1291489?alt=media&amp;token=cb2c8dac-9e5f-446c-9cd1-e6cb3bd143ec&amp;apiKey=63828fb76c3b48909b3971c1cdf7c44d">Watch the video <span aria-hidden="true">↗</span></button>
+    </div>
+    <button class="project-card__preview" type="button" data-open-project-video data-video-title="Recruitment Platform Dashboard" data-video-src="https://cdn.builder.io/o/assets%2F63828fb76c3b48909b3971c1cdf7c44d%2Ff7bca6af4bfe4f948267e4f5b1291489?alt=media&amp;token=cb2c8dac-9e5f-446c-9cd1-e6cb3bd143ec&amp;apiKey=63828fb76c3b48909b3971c1cdf7c44d" aria-label="Play the Recruitment Platform Dashboard video">
+      <span class="video-preview__label">Platform walkthrough</span>
+      <span class="video-preview__flow" aria-hidden="true">
+        <span class="video-preview__node">Candidates</span>
+        <span class="video-preview__arrow">→</span>
+        <span class="video-preview__node">Dashboard</span>
+        <span class="video-preview__arrow">→</span>
+        <span class="video-preview__node">Insights</span>
+      </span>
+      <span class="video-preview__play" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5a1 1 0 0 1 1.5-.86l10 6.5a1 1 0 0 1 0 1.72l-10 6.5A1 1 0 0 1 8 18.5z"/></svg>
+      </span>
+      <span class="video-preview__hint">Select to play</span>
+    </button>
+  </article>
+</section>
+
 <!-- SKILLS -->
 <section class="skills">
   <span class="section-label">Skills</span>
@@ -788,9 +1012,49 @@ footer {
   </div>
 </section>
 
+<dialog class="video-dialog" id="projectVideoDialog" aria-labelledby="videoDialogTitle">
+  <div class="video-dialog__header">
+    <h2 id="videoDialogTitle">AI Hiring Agent</h2>
+    <form method="dialog">
+      <button class="video-dialog__close" type="submit" aria-label="Close video">×</button>
+    </form>
+  </div>
+  <video id="projectVideo" controls playsinline preload="none">
+    <source id="projectVideoSource" type="video/mp4">
+    Your browser does not support embedded video.
+  </video>
+</dialog>
+
 <footer>
   © 2026 Aditi Singh · Built with care
 </footer>
+
+<script>
+const projectVideoDialog = document.querySelector('#projectVideoDialog');
+const projectVideo = document.querySelector('#projectVideo');
+const projectVideoTitle = document.querySelector('#videoDialogTitle');
+const projectVideoSource = document.querySelector('#projectVideoSource');
+
+document.querySelectorAll('[data-open-project-video]').forEach((button) => {
+  button.addEventListener('click', () => {
+    projectVideoTitle.textContent = button.dataset.videoTitle;
+    projectVideoSource.src = button.dataset.videoSrc;
+    projectVideo.load();
+    projectVideoDialog.showModal();
+    projectVideo.play().catch(() => {});
+  });
+});
+
+projectVideoDialog.addEventListener('click', (event) => {
+  if (event.target === projectVideoDialog) projectVideoDialog.close();
+});
+
+projectVideoDialog.addEventListener('close', () => {
+  projectVideo.pause();
+  projectVideoSource.removeAttribute('src');
+  projectVideo.load();
+});
+</script>
 
 </body>
 </html>
